@@ -24,13 +24,16 @@ button { padding: 10px 15px; }
 
 <body>
 
-<h2>Captcha 1 : Clique sur le vélo 🚲</h2>
-
+<!-- CAPTCHA 1 : Sélection des vélos -->
 <div id="captcha1">
-  <img src="https://i.imgur.com/8QfQFQJ.png" onclick="next1()">
-  <img src="https://i.imgur.com/WvY8k7C.png">
+  <h2>Captcha 1 : Clique sur tous les vélos 🚲</h2>
+  <img src="https://i.imgur.com/8QfQFQJ.png" data-bike="true" onclick="checkBike(this)">
+  <img src="https://i.imgur.com/WvY8k7C.png" data-bike="false" onclick="checkBike(this)">
+  <img src="https://i.imgur.com/3XK0yPj.png" data-bike="true" onclick="checkBike(this)">
+  <img src="https://i.imgur.com/4d1Jk6B.png" data-bike="false" onclick="checkBike(this)">
 </div>
 
+<!-- CAPTCHA 2 : Calcul simple -->
 <div id="captcha2" class="hidden">
   <h2>Captcha 2 : Combien font 5 + 6 ?</h2>
   <input id="math">
@@ -38,6 +41,7 @@ button { padding: 10px 15px; }
   <button onclick="next2()">Valider</button>
 </div>
 
+<!-- CAPTCHA 3 : Mot à taper -->
 <div id="captcha3" class="hidden">
   <h2>Captcha 3 : Tape le mot <strong>CINEMA</strong></h2>
   <input id="word">
@@ -45,15 +49,35 @@ button { padding: 10px 15px; }
   <button onclick="next3()">Valider</button>
 </div>
 
+<!-- Succès -->
 <div id="success" class="hidden">
   <h2>🎉 Bravo, tu as terminé le jeu !</h2>
 </div>
 
 <script>
+let bikesSelected = 0;
+const totalBikes = 2; // nombre de vélos à cliquer
+
+function checkBike(img) {
+  if (img.dataset.bike === "true") {
+    img.style.borderColor = "green";
+    bikesSelected++;
+    img.onclick = null; // empêche de cliquer plusieurs fois sur la même image
+  } else {
+    img.style.borderColor = "red";
+    alert("Ce n'est pas un vélo ! Essaie encore.");
+  }
+
+  if (bikesSelected === totalBikes) {
+    next1();
+  }
+}
+
 function next1() {
   document.getElementById("captcha1").classList.add("hidden");
   document.getElementById("captcha2").classList.remove("hidden");
 }
+
 function next2() {
   if (document.getElementById("math").value == "11") {
     document.getElementById("captcha2").classList.add("hidden");
@@ -62,6 +86,7 @@ function next2() {
     alert("Essaie encore !");
   }
 }
+
 function next3() {
   if (document.getElementById("word").value.toUpperCase() == "CINEMA") {
     document.getElementById("captcha3").classList.add("hidden");
