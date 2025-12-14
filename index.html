@@ -89,13 +89,14 @@ function next2() {
 }
 
 function next3() {
-  if (document.getElementById("word").value.toUpperCase() == "CINEMA") {
+  if (document.getElementById("word").value === "cinema") {
     document.getElementById("captcha3").classList.add("hidden");
     document.getElementById("success").classList.remove("hidden");
   } else {
     alert("Presque !");
   }
 }
+
 </script>
 
 </body>
