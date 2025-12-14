@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Jeu Captcha</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+.hidden { display: none; }
+img {
+  width: 120px;
+  margin: 10px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
+img:hover { border-color: black; }
+button { padding: 10px 15px; }
+</style>
+</head>
+
+<body>
+
+<h2>Captcha 1 : Clique sur le vélo 🚲</h2>
+
+<div id="captcha1">
+  <img src="https://i.imgur.com/8QfQFQJ.png" onclick="next1()">
+  <img src="https://i.imgur.com/WvY8k7C.png">
+</div>
+
+<div id="captcha2" class="hidden">
+  <h2>Captcha 2 : Combien font 5 + 6 ?</h2>
+  <input id="math">
+  <br><br>
+  <button onclick="next2()">Valider</button>
+</div>
+
+<div id="captcha3" class="hidden">
+  <h2>Captcha 3 : Tape le mot <strong>CINEMA</strong></h2>
+  <input id="word">
+  <br><br>
+  <button onclick="next3()">Valider</button>
+</div>
+
+<div id="success" class="hidden">
+  <h2>🎉 Bravo, tu as terminé le jeu !</h2>
+</div>
+
+<script>
+function next1() {
+  document.getElementById("captcha1").classList.add("hidden");
+  document.getElementById("captcha2").classList.remove("hidden");
+}
+function next2() {
+  if (document.getElementById("math").value == "11") {
+    document.getElementById("captcha2").classList.add("hidden");
+    document.getElementById("captcha3").classList.remove("hidden");
+  } else {
+    alert("Essaie encore !");
+  }
+}
+function next3() {
+  if (document.getElementById("word").value.toUpperCase() == "CINEMA") {
+    document.getElementById("captcha3").classList.add("hidden");
+    document.getElementById("success").classList.remove("hidden");
+  } else {
+    alert("Presque !");
+  }
+}
+</script>
+
+</body>
+</html>
